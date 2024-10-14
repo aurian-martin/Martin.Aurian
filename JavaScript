@@ -1,0 +1,63 @@
+const config = {
+    width: 1344,
+    height: 756,
+    type : Phaser.AUTO,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: {y: 100}
+
+        }
+    },
+    scene: {
+        preload: preload,
+        create: create,
+        update: update,
+    }
+}
+
+var game = new Phaser.Game(config)
+let barre
+let cursors
+
+
+function preload() {
+    this.load.image('barre', 'images/barre blanche.jpg');
+    this.load.image('balle', 'images/balle.png');
+
+}
+
+function create() {
+    barre = this.physics.add.image(30, 30, 'barre')
+    balle = this.physics.add.image(300, 300, 'balle')
+    balle.setScale(1/10,1/10)
+    balle.setCollideWorldBounds(true);
+    balle.setBounce(0, 1);
+    barre.setCollideWorldBounds(true);
+    barre.setBounce(0, 1);
+    barre.body.collideWorldBounds = true;
+    balle.body.collideWorldBounds = true;
+    cursors = this.input.keyboard.createCursorKeys()
+    console.log(cursors)
+
+
+
+
+}
+
+function update(){
+    barre.setVelocityX(0)
+
+    barre.setVelocityY(0)
+
+
+
+    if(cursors.up.isDown){
+        barre.setVelocity(0, -500)
+
+    }
+    if(cursors.down.isDown){
+        barre.setVelocity(0, 500)
+
+    }
+}
